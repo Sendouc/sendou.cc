@@ -5,6 +5,7 @@ import {
   FaPatreon,
   FaTrophy,
   FaTwitch,
+  FaTwitter,
   FaYoutube,
 } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
@@ -12,7 +13,62 @@ import { SiOctopusdeploy } from "react-icons/si";
 import Image from "next/image";
 import { useState } from "react";
 
-const linkClass = "mx-2 hover:text-yellow-400 cursor-pointer";
+const links = [
+  {
+    name: "email",
+    left: "mailto:",
+    right: "77@gmail.com",
+    Icon: MdEmail,
+  },
+  {
+    name: "twitter",
+    left: "twitter.com/",
+    right: "c",
+    Icon: FaTwitter,
+  },
+  {
+    name: "youtube",
+    left: "youtube.com/c/",
+    right: "",
+    Icon: FaYoutube,
+  },
+  {
+    name: "twitch",
+    left: "twitch.tv/",
+    right: "",
+    Icon: FaTwitch,
+  },
+  {
+    name: "github",
+    left: "github.com/",
+    right: "c",
+    Icon: FaGithub,
+  },
+  {
+    name: "challonge",
+    left: "",
+    right: "s.challonge.com",
+    Icon: FaTrophy,
+  },
+  {
+    name: "sendou.ink",
+    left: "sendou.ink/u/",
+    right: "",
+    Icon: SiOctopusdeploy,
+  },
+  {
+    name: "discord",
+    left: "discord.gg/",
+    right: "",
+    Icon: FaDiscord,
+  },
+  {
+    name: "patreon",
+    left: "patreon.com/",
+    right: "",
+    Icon: FaPatreon,
+  },
+];
 
 export default function Home() {
   const [iconHovered, setIconHovered] = useState({
@@ -20,62 +76,11 @@ export default function Home() {
     right: "",
   });
 
-  const links = [
-    {
-      name: "email",
-      left: "mailto:",
-      right: "77@gmail.com",
-      Icon: MdEmail,
-    },
-    {
-      name: "youtube",
-      left: "youtube.com/c/",
-      right: "",
-      Icon: FaYoutube,
-    },
-    {
-      name: "twitch",
-      left: "twitch.tv/",
-      right: "",
-      Icon: FaTwitch,
-    },
-    {
-      name: "github",
-      left: "github.com/",
-      right: "c",
-      Icon: FaGithub,
-    },
-    {
-      name: "challonge",
-      left: "",
-      right: "s.challonge.com",
-      Icon: FaTrophy,
-    },
-    {
-      name: "sendou.ink",
-      left: "sendou.ink/u/",
-      right: "",
-      Icon: SiOctopusdeploy,
-    },
-    {
-      name: "discord",
-      left: "discord.gg/",
-      right: "",
-      Icon: FaDiscord,
-    },
-    {
-      name: "patreon",
-      left: "patreon.com/",
-      right: "",
-      Icon: FaPatreon,
-    },
-  ];
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>sendou</title>
+        <link rel="icon" href="/favicon.svg" />
       </Head>
 
       <main className="flex flex-col items-center justify-center flex-1 text-center">
@@ -96,26 +101,40 @@ export default function Home() {
           </h1>
         </header>
 
-        <div className="flex text-4xl mt-4">
+        <div className="flex text-3xl mt-4">
           {links.map(({ Icon, name, ...link }) => (
-            <a key={name} href={`https://${link.left}sendou${link.right}`}>
-              <Icon
-                className="mx-2 hover:text-yellow-400 cursor-pointer"
-                onMouseEnter={() => setIconHovered(link)}
-                onFocus={() => setIconHovered(link)}
-              />
+            <a
+              key={name}
+              className="px-2 hover:text-yellow-400 cursor-pointer"
+              href={`https://${link.left}sendou${link.right}`}
+              onFocus={() => setIconHovered(link)}
+              onBlur={() =>
+                setIconHovered({
+                  left: "",
+                  right: "",
+                })
+              }
+              onMouseEnter={() => setIconHovered(link)}
+              onMouseLeave={() =>
+                setIconHovered({
+                  left: "",
+                  right: "",
+                })
+              }
+            >
+              <Icon />
             </a>
           ))}
         </div>
 
-        <section className="mt-8 max-w-md">
-          Hey! My name is Kalle but most people probably known me as Sendou. I
+        <section className="mt-8 max-w-md container">
+          Hey! My name is Kalle but most people probably know me as Sendou. I
           study computer science and work as a full-stack web developer at the
           University of Helsinki.
           <br />
           <br />
-          I've been playing Splatoon competitively since it was released in
-          2015. I have won various prestigious tournaments and was{" "}
+          Competitive Splatoon has been my thing since it was released in 2015.
+          I have won various prestigious tournaments and was{" "}
           <a className="text-yellow-400" href="/ghost.jpeg">
             signed as a pro player to an esports organization for a year.
           </a>
