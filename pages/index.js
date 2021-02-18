@@ -1,82 +1,148 @@
-import Head from 'next/head'
+import Head from "next/head";
+import {
+  FaDiscord,
+  FaGithub,
+  FaPatreon,
+  FaTrophy,
+  FaTwitch,
+  FaYoutube,
+} from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import { SiOctopusdeploy } from "react-icons/si";
+import Image from "next/image";
+import { useState } from "react";
+
+const linkClass = "mx-2 hover:text-yellow-400 cursor-pointer";
 
 export default function Home() {
+  const [iconHovered, setIconHovered] = useState({
+    left: "",
+    right: "",
+  });
+
+  const links = [
+    {
+      name: "email",
+      left: "mailto:",
+      right: "77@gmail.com",
+      Icon: MdEmail,
+    },
+    {
+      name: "youtube",
+      left: "youtube.com/c/",
+      right: "",
+      Icon: FaYoutube,
+    },
+    {
+      name: "twitch",
+      left: "twitch.tv/",
+      right: "",
+      Icon: FaTwitch,
+    },
+    {
+      name: "github",
+      left: "github.com/",
+      right: "c",
+      Icon: FaGithub,
+    },
+    {
+      name: "challonge",
+      left: "",
+      right: "s.challonge.com",
+      Icon: FaTrophy,
+    },
+    {
+      name: "sendou.ink",
+      left: "sendou.ink/u/",
+      right: "",
+      Icon: SiOctopusdeploy,
+    },
+    {
+      name: "discord",
+      left: "discord.gg/",
+      right: "",
+      Icon: FaDiscord,
+    },
+    {
+      name: "patreon",
+      left: "patreon.com/",
+      right: "",
+      Icon: FaPatreon,
+    },
+  ];
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    <div className="flex flex-col items-center justify-center min-h-screen">
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex flex-col items-center justify-center flex-1 px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
+      <main className="flex flex-col items-center justify-center flex-1 text-center">
+        <header>
+          <Image
+            className="inline object-cover w-48 h-48 rounded-full"
+            src="/me.png"
+            alt="Profile image"
+            width={150}
+            height={150}
+          />
+          <h1 className="font-bold text-4xl mt-3 text-gray-600">
+            <span className="invisible">{iconHovered.right}</span>
+            <span>{iconHovered.left}</span>
+            <span className="text-yellow-400">sendou</span>
+            <span>{iconHovered.right}</span>
+            <span className="invisible">{iconHovered.left}</span>
+          </h1>
+        </header>
 
-        <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="p-3 font-mono text-lg bg-gray-100 rounded-md">
-            pages/index.js
-          </code>
-        </p>
-
-        <div className="flex flex-wrap items-center justify-around max-w-4xl mt-6 sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+        <div className="flex text-4xl mt-4">
+          {links.map(({ Icon, name, ...link }) => (
+            <a key={name} href={`https://${link.left}sendou${link.right}`}>
+              <Icon
+                className="mx-2 hover:text-yellow-400 cursor-pointer"
+                onMouseEnter={() => setIconHovered(link)}
+                onFocus={() => setIconHovered(link)}
+              />
+            </a>
+          ))}
         </div>
+
+        <section className="mt-8 max-w-md">
+          Hey! My name is Kalle but most people probably known me as Sendou. I
+          study computer science and work as a full-stack web developer at the
+          University of Helsinki.
+          <br />
+          <br />
+          I've been playing Splatoon competitively since it was released in
+          2015. I have won various prestigious tournaments and was{" "}
+          <a className="text-yellow-400" href="/ghost.jpeg">
+            signed as a pro player to an esports organization for a year.
+          </a>
+          <br />
+          <br /> I'm also deeply involved with tournament organizing and other
+          community building efforts. Even found myself{" "}
+          <a
+            className="text-yellow-400"
+            href="https://youtu.be/rFXiU29TPK0?t=1418"
+          >
+            casting Splatoon European Championships 2018
+          </a>{" "}
+          live in Switzerland.
+        </section>
       </main>
 
-      <footer className="flex items-center justify-center w-full h-24 border-t">
+      {/* <footer className="flex items-center justify-center w-full h-24 border-t">
         <a
           className="flex items-center justify-center"
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <img src="/vercel.svg" alt="Vercel Logo" className="h-4 ml-2" />
         </a>
-      </footer>
+      </footer> */}
     </div>
-  )
+  );
 }
