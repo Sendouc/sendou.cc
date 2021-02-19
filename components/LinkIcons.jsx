@@ -91,7 +91,7 @@ const LinkIcons = () => {
           width={150}
           height={150}
         />
-        <h1 className="font-bold text-4xl mt-3 text-gray-600">
+        <h1 className="font-bold text-4xl mt-4 text-gray-600">
           <span className="invisible">{iconHovered.right}</span>
           <span>{iconHovered.left}</span>
           <span className="text-yellow-400">sendou</span>
