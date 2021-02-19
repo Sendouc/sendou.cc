@@ -1,81 +1,24 @@
 import Head from "next/head";
-import {
-  FaDiscord,
-  FaGithub,
-  FaPatreon,
-  FaTrophy,
-  FaTwitch,
-  FaTwitter,
-  FaYoutube,
-} from "react-icons/fa";
-import { MdEmail } from "react-icons/md";
-import { SiOctopusdeploy } from "react-icons/si";
+import Parser from "rss-parser";
+import DividerWithText from "../components/DividerWithText";
+import LinkIcons from "../components/LinkIcons";
 import Image from "next/image";
-import { useState } from "react";
+import { FaTwitch, FaTwitter, FaYoutube } from "react-icons/fa";
 
-const links = [
-  {
-    name: "email",
-    left: "mailto:",
-    right: "77@gmail.com",
-    Icon: MdEmail,
+const parserYoutube = new Parser({
+  customFields: {
+    item: ["media:group", "media:group", { keepArray: true }],
   },
-  {
-    name: "twitter",
-    left: "twitter.com/",
-    right: "c",
-    Icon: FaTwitter,
-  },
-  {
-    name: "youtube",
-    left: "youtube.com/c/",
-    right: "",
-    Icon: FaYoutube,
-  },
-  {
-    name: "twitch",
-    left: "twitch.tv/",
-    right: "",
-    Icon: FaTwitch,
-  },
-  {
-    name: "github",
-    left: "github.com/",
-    right: "c",
-    Icon: FaGithub,
-  },
-  {
-    name: "challonge",
-    left: "",
-    right: "s.challonge.com",
-    Icon: FaTrophy,
-  },
-  {
-    name: "sendou.ink",
-    left: "sendou.ink/u/",
-    right: "",
-    Icon: SiOctopusdeploy,
-  },
-  {
-    name: "discord",
-    left: "discord.gg/",
-    right: "",
-    Icon: FaDiscord,
-  },
-  {
-    name: "patreon",
-    left: "patreon.com/",
-    right: "",
-    Icon: FaPatreon,
-  },
-];
+});
 
-export default function Home() {
-  const [iconHovered, setIconHovered] = useState({
-    left: "",
-    right: "",
-  });
+const parserTwitch = new Parser();
 
+const YOUTUBE_RSS_FEED =
+  "https://www.youtube.com/feeds/videos.xml?channel_id=UCWbJLXByvsfQvTcR4HLPs5Q";
+
+const TWITCH_RSS_FEED = "https://twitchrss.appspot.com/vodonly/sendou";
+
+export default function Home({ youtubeVideo, twitchVideo }) {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <Head>
@@ -83,50 +26,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.svg" />
       </Head>
 
-      <main className="flex flex-col items-center justify-center flex-1 text-center">
-        <header>
-          <Image
-            className="inline object-cover w-48 h-48 rounded-full"
-            src="/me.png"
-            alt="Profile image"
-            width={150}
-            height={150}
-          />
-          <h1 className="font-bold text-4xl mt-3 text-gray-600">
-            <span className="invisible">{iconHovered.right}</span>
-            <span>{iconHovered.left}</span>
-            <span className="text-yellow-400">sendou</span>
-            <span>{iconHovered.right}</span>
-            <span className="invisible">{iconHovered.left}</span>
-          </h1>
-        </header>
-
-        <div className="flex text-3xl mt-4">
-          {links.map(({ Icon, name, ...link }) => (
-            <a
-              key={name}
-              className="px-2 hover:text-yellow-400 cursor-pointer"
-              href={`https://${link.left}sendou${link.right}`}
-              onFocus={() => setIconHovered(link)}
-              onBlur={() =>
-                setIconHovered({
-                  left: "",
-                  right: "",
-                })
-              }
-              onMouseEnter={() => setIconHovered(link)}
-              onMouseLeave={() =>
-                setIconHovered({
-                  left: "",
-                  right: "",
-                })
-              }
-            >
-              <Icon />
-            </a>
-          ))}
-        </div>
-
+      <main className="flex flex-col items-center justify-center flex-1 text-center mx-4">
+        <LinkIcons />
         <section className="mt-8 max-w-md container">
           Hey! My name is Kalle but most people probably know me as Sendou. I
           study computer science and work as a full-stack web developer at the
@@ -149,19 +50,65 @@ export default function Home() {
           </a>{" "}
           live in Switzerland.
         </section>
-      </main>
 
-      {/* <footer className="flex items-center justify-center w-full h-24 border-t">
-        <a
-          className="flex items-center justify-center"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{" "}
-          <img src="/vercel.svg" alt="Vercel Logo" className="h-4 ml-2" />
-        </a>
-      </footer> */}
+        {/* <DividerWithText>CONTENT</DividerWithText>
+        <div className="flex flex-wrap mt-8 text-sm">
+          <a href={youtubeVideo.link}>
+            <div className="flex w-60 h-52 mx-4">
+              <div className="bg-yellow-400 text-black rounded-md">
+                <div className="flex mx-auto font-bold flex items-center justify-center">
+                  <FaYoutube className="mr-1" />
+                  YouTube
+                </div>
+                <Image src={youtubeVideo.thumbnail} width={256} height={144} />
+                <div className="h-11 flex justify-center items-center">
+                  {youtubeVideo.title}
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <a href={twitchVideo.link}>
+            <div className="flex w-60 h-52 mx-4">
+              <div className="bg-yellow-400 text-black rounded-md">
+                <div className="flex mx-auto font-bold flex items-center justify-center">
+                  <FaTwitch className="mr-1" />
+                  Twitch
+                </div>
+                <Image src={twitchVideo.thumbnail} width={256} height={144} />
+                <div className="h-11 flex justify-center items-center">
+                  {twitchVideo.title}
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <DividerWithText>COMMITS</DividerWithText> */}
+      </main>
     </div>
   );
 }
+
+export const getStaticProps = async () => {
+  const feedYoutube = await parserYoutube.parseURL(YOUTUBE_RSS_FEED);
+  const youtubeVideo = {
+    title: feedYoutube.items[0].title,
+    thumbnail: feedYoutube.items[0]["media:group"]["media:thumbnail"][0][
+      "$"
+    ].url.replace("hqdefault", "maxresdefault"), // width 480 height 360
+    link: feedYoutube.items[0].link,
+  };
+
+  const feedTwitch = await parserTwitch.parseURL(TWITCH_RSS_FEED);
+  console.log({ feedTwitch: feedTwitch.items[0] });
+  const twitchVideo = {
+    title: feedTwitch.items[0].title,
+    // thumbnail: feedTwitch.items[0].content,
+    thumbnail:
+      "https://static-cdn.jtvnw.net/cf_vods/d2nvs31859zcd8/173f356cbc8d5665ce57_sendou_40561091149_1613162501//thumb/thumb0-640x360.jpg",
+    link: feedTwitch.items[0].link,
+  };
+
+  return { props: { youtubeVideo, twitchVideo } };
+};
