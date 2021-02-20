@@ -83,7 +83,7 @@ const LinkIcons = () => {
   });
   return (
     <>
-      <header>
+      <header className="font-bold text-4xl text-gray-600 mt-4">
         <Image
           className="inline object-cover w-48 h-48 rounded-full"
           src="/me.png"
@@ -91,12 +91,15 @@ const LinkIcons = () => {
           width={150}
           height={150}
         />
-        <h1 className="font-bold text-4xl mt-4 text-gray-600">
+        <h1 className="hidden sm:block mt-3">
           <span className="invisible">{iconHovered.right}</span>
           <span>{iconHovered.left}</span>
           <span className="text-yellow-400">sendou</span>
           <span>{iconHovered.right}</span>
           <span className="invisible">{iconHovered.left}</span>
+        </h1>
+        <h1 className="block sm:hidden mt-3">
+          <span className="text-yellow-400">sendou</span>
         </h1>
       </header>
 
