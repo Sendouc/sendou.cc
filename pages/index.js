@@ -1,20 +1,15 @@
 import Head from "next/head";
 import LinkIcons from "../components/LinkIcons";
+import MyHead from "../components/MyHead";
 
 export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
-      <Head>
-        <title>sendou</title>
-        <link
-          rel="icon"
-          href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟡</text></svg>"
-        />
-      </Head>
+      <MyHead />
 
-      <main className="flex flex-col items-center justify-center flex-1 text-center mx-4 mb-4">
+      <main className="flex flex-col items-center justify-center flex-1 mx-4 mb-4 text-center">
         <LinkIcons />
-        <section className="mt-8 max-w-md container">
+        <section className="container max-w-md mt-8">
           Hey! My name is Kalle but most people probably know me as Sendou. I
           study computer science and work as a full-stack web developer at the
           University of Helsinki.
