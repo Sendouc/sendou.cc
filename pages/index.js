@@ -11,8 +11,8 @@ export default function Home() {
         <LinkIcons />
         <section className="container max-w-md mt-8">
           Hey! My name is Kalle but most people probably know me as Sendou. I
-          study computer science and work as a full-stack web developer at the
-          University of Helsinki.
+          study computer science at the University of Helsinki and work as a
+          full-stack web developer.
           <br />
           <br />
           Competitive Splatoon has been my thing since it was released in 2015.
